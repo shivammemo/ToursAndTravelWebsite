@@ -8,10 +8,18 @@ const express = require('express');
 
 var app = express()
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/tours_and_travel", function (err, db) {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/tours_and_travel", { useUnifiedTopology: true, useNewUrlParser: true }, function (err, db) {
     if (!(err)) { console.log("Connected to the database") }
 }
 );
+// const connectDB = async () => {
+//     await mongoose.connect("mongodb://localhost/tours_and_travel", {
+//         useUnifiedTopology: true,
+//         useNewUrlParser: true
+//     })
+//     console.log("DB connected!!!")
+// }
+// connectDB
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require("express-session")({
