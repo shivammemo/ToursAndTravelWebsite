@@ -8,7 +8,7 @@ const express = require('express');
 
 var app = express()
 
-mongoose.connect("mongodb://localhost/tours_and_travel", function (err, db) {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/tours_and_travel", function (err, db) {
     if (!(err)) { console.log("Connected to the database") }
 }
 );
