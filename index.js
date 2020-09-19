@@ -5,6 +5,8 @@ var User = require("./models/user");
 var LocalStrategy = require("passport-local");
 var passportLocalMongoose = require("passport-local-mongoose");
 const express = require('express');
+var session = require('express-session')
+var MemoryStore = require('memorystore')(session)
 
 var app = express()
 
@@ -12,6 +14,14 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/tours_and_trave
     if (!(err)) { console.log("Connected to the database") }
 }
 );
+
+app.use(session({
+    cookie: { maxAge: 86400000 },
+    store: new MemoryStore({
+        checkPeriod: 86400000 // prune expired entries every 24h
+    }),
+    secret: 'keyboard cat'
+}))
 // const connectDB = async () => {
 //     await mongoose.connect("mongodb://localhost/tours_and_travel", {
 //         useUnifiedTopology: true,
