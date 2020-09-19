@@ -20,7 +20,9 @@ app.use(session({
     store: new MemoryStore({
         checkPeriod: 86400000 // prune expired entries every 24h
     }),
-    secret: 'keyboard cat'
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
 }))
 // const connectDB = async () => {
 //     await mongoose.connect("mongodb://localhost/tours_and_travel", {
@@ -32,11 +34,11 @@ app.use(session({
 // connectDB
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(require("express-session")({
-    secret: "Rusty is the best og in the world",
-    resave: false,
-    saveUninitialized: false
-}));
+// app.use(require("express-session")({
+//     secret: "Rusty is the best og in the world",
+//     resave: false,
+//     saveUninitialized: false
+// }));
 app.set('view engine', 'ejs')
 app.get('/', function (req, res) {
     res.render('home')
